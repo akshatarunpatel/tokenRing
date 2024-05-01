@@ -1,47 +1,58 @@
- import java.util.Scanner;
+import java.util.*;
 
-class Tring {
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter the number of nodes: ");
-        int n = sc.nextInt();
 
-        // Decides the number of nodes forming the ring
-        int token = 0;
+public class TokenRing{
 
-        for (int i = 0; i < n; i++)
-            System.out.print(" " + i);
-        System.out.println(" " + 0);
-
-        try {
-            while (true) {
-                System.out.print("Enter sender: ");
-                int s = sc.nextInt();
-                System.out.print("Enter receiver: ");
-                int r = sc.nextInt();
-                System.out.print("Enter Data: ");
-                String d = sc.next();
-
-                System.out.print("Token passing:");
-                 //current token not equal to sender, increment i by 1 and j by j+1%n
-         
-                for (int i = token, j = token; (i % n) != s; i++, j = (j + 1) % n) {
-                System.out.print(" " + j + "->");
-                }
-                System.out.println(" " + s);
-
-                System.out.println("Sender " + s + " sending data: " + d);
-
-                // start forwarding from node after sender until it becomes equal to receiver and increment  by i+1%n
-                for (int i = (s + 1) % n; i != r; i = (i + 1) % n) {
-                System.out.println("Data " + d + " forwarded by " + i);
-                }
-                System.out.println("Receiver " + r + " received data: " + d);
-                token = s;
-            }
-        } catch (Exception e) {
-            System.out.println("Error occurred: " + e.getMessage());
-        }
-    }
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter Number Of Nodes You Want In The Ring : ");
+		int n = sc.nextInt();
+		
+		System.out.println("Ring Formed Is As Below: ");
+		for(int i=0; i<n; i++){
+			System.out.print(i + " ");
+		}
+		
+		System.out.println("0");
+		
+		
+		int choice = 0;
+		
+		do{
+			System.out.print("Enter Sender : ");
+			int sender = sc.nextInt();
+			
+			System.out.print("Enter Receiver : ");
+			int receiver = sc.nextInt();
+			
+			System.out.print("Enter Data To Send : ");
+			int data = sc.nextInt();
+			
+			int token = 0;
+			
+			System.out.print("Token Passing : ");
+			
+			for(int i=token; i<sender; i++){
+				System.out.print(" " + i + "->");
+			}
+			
+			System.out.println(" " + sender);
+			System.out.println("Sender:" + sender + " Sending Data: " + data);
+			
+			for(int i=sender; i!=receiver; i = (i+1)%n){
+				System.out.println("Data: " + data + " Forwarded By: " + i);
+			}
+			
+			System.out.println("Receiver: " + receiver + " Received The Data: " + data);
+			
+			token = sender;
+			
+			System.out.print("Do You Want To Send Data Again? If YES Enter 1, If NO Enter 0: ");
+			choice = sc.nextInt();
+		
+		}while(choice == 1);		
+		
+	}
 }
